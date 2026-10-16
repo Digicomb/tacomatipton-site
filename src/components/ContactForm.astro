@@ -1,0 +1,164 @@
+---
+import { topics, locations } from '../options';
+---
+
+<form class="contact-form" id="contact-form" novalidate>
+	<div class="field-row">
+		<div class="field">
+			<label for="cf-name">Full name <span aria-hidden="true">*</span></label>
+			<input id="cf-name" name="name" type="text" autocomplete="name" maxlength="120" required />
+		</div>
+		<div class="field">
+			<label for="cf-email">Email <span aria-hidden="true">*</span></label>
+			<input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required />
+		</div>
+	</div>
+	<div class="field-row">
+		<div class="field">
+			<label for="cf-phone">Phone</label>
+			<input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" />
+		</div>
+		<div class="field">
+			<label for="cf-location">Location <span aria-hidden="true">*</span></label>
+			<select id="cf-location" name="location" required>
+				{locations.map((l) => <option value={l.value}>{l.label}</option>)}
+			</select>
+		</div>
+	</div>
+	<div class="field">
+		<label for="cf-topic">How can we help? <span aria-hidden="true">*</span></label>
+		<select id="cf-topic" name="topic" required>
+			{topics.map((t) => <option value={t.value}>{t.label}</option>)}
+		</select>
+	</div>
+	<div class="field" id="cf-address-field" hidden>
+		<label for="cf-address">Your rental address <span aria-hidden="true">*</span></label>
+		<input id="cf-address" name="address" type="text" autocomplete="street-address" maxlength="200" />
+	</div>
+	<div class="field">
+		<label for="cf-message">Message <span aria-hidden="true">*</span></label>
+		<textarea
+			id="cf-message"
+			name="message"
+			rows="5"
+			maxlength="4000"
+			required
+			placeholder="Tell us what you’re looking for: bedrooms, move-in date, budget, pets."></textarea>
+	</div>
+
+	<!-- Spam trap: hidden from people, often filled in by bots. -->
+	<div class="hp" aria-hidden="true">
+		<label for="cf-website">Website</label>
+		<input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+	</div>
+
+	<button class="btn btn-primary" type="submit">Send message</button>
+	<p class="form-consent">
+		Emergency? Don’t use this form. See <a href="#residents">emergencies</a>.
+		Read our <a href="/privacy/">privacy policy</a>.
+	</p>
+	<p class="form-status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+	import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from '../config';
+
+	declare global {
+		interface Window {
+			gtag?: (...args: unknown[]) => void;
+		}
+	}
+
+	const form = document.getElementById('contact-form') as HTMLFormElement;
+	const status = form.querySelector('.form-status') as HTMLParagraphElement;
+	const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+	const topic = form.elements.namedItem('topic') as HTMLSelectElement;
+	const addressField = document.getElementById('cf-address-field') as HTMLDivElement;
+	const message = form.elements.namedItem('message') as HTMLTextAreaElement;
+	const thanks = "Thanks! We've got your message and will get back to you soon.";
+
+	const placeholders: Record<string, string> = {
+		Renting: 'Tell us what you’re looking for: bedrooms, move-in date, budget, pets.',
+		Maintenance: 'What needs fixing, where in the home, and when is a good time for us to come by?',
+		Resident: 'How can we help?',
+		Other: 'How can we help?',
+	};
+
+	// Residents get an address field; the message hint follows the topic.
+	const syncTopic = () => {
+		const isResident = topic.value === 'Maintenance' || topic.value === 'Resident';
+		addressField.hidden = !isResident;
+		message.placeholder = placeholders[topic.value] ?? '';
+	};
+	topic.addEventListener('change', syncTopic);
+	document.addEventListener('contact:preset', syncTopic);
+	syncTopic();
+
+	const setStatus = (text: string, kind: 'error' | 'success' | '') => {
+		status.textContent = text;
+		status.dataset.kind = kind;
+	};
+
+	form.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		const data = new FormData(form);
+		const value = (key: string) => String(data.get(key) ?? '').trim();
+
+		// Bots fill the hidden field; pretend it worked and drop it.
+		if (value('website')) {
+			form.reset();
+			syncTopic();
+			setStatus(thanks, 'success');
+			return;
+		}
+
+		const required = ['name', 'email', ...(addressField.hidden ? [] : ['address']), 'message'];
+		for (const name of required) {
+			const input = form.elements.namedItem(name) as HTMLInputElement;
+			if (!value(name) || !input.checkValidity()) {
+				const label = form.querySelector(`label[for="${input.id}"]`)?.firstChild?.textContent?.trim();
+				setStatus(name === 'email' ? 'Please enter a valid email address.' : `Please fill in "${label}".`, 'error');
+				input.focus();
+				return;
+			}
+		}
+
+		button.disabled = true;
+		setStatus('Sending…', '');
+
+		try {
+			const response = await fetch(`${SUPABASE_URL}/rest/v1/tt_contact_requests`, {
+				method: 'POST',
+				headers: {
+					apikey: SUPABASE_PUBLISHABLE_KEY,
+					'Content-Type': 'application/json',
+					Prefer: 'return=minimal',
+				},
+				body: JSON.stringify({
+					name: value('name'),
+					email: value('email'),
+					phone: value('phone') || null,
+					topic: value('topic'),
+					location: value('location'),
+					address: addressField.hidden ? null : value('address'),
+					message: value('message'),
+					source: 'homepage',
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Contact request failed: ${response.status}`);
+			}
+
+			form.reset();
+			syncTopic();
+			setStatus(thanks, 'success');
+			window.gtag?.('event', 'generate_lead', { form: 'contact', topic: value('topic'), location: value('location') });
+		} catch (error) {
+			console.error(error);
+			setStatus('Something went wrong sending your message. Please try again in a moment.', 'error');
+		} finally {
+			button.disabled = false;
+		}
+	});
+</script>

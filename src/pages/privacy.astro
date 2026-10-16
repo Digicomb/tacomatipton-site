@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const effectiveDate = 'October 16, 2026';
+---
+
+<Base
+	title="Privacy Policy | Tacoma Tipton"
+	description="How Tacoma Tipton collects, uses and protects information on tacomatipton.com."
+>
+	<SiteHeader />
+
+	<main class="section">
+		<article class="container prose">
+			<span class="eyebrow">Legal</span>
+			<h1>Privacy Policy</h1>
+			<p class="prose-meta">Effective {effectiveDate}</p>
+
+			<p>
+				This policy explains what information Tacoma Tipton ("we," "us") collects when you visit
+				tacomatipton.com, how we use it, and the choices you have.
+			</p>
+
+			<h2>Information we collect</h2>
+			<h3>Information you give us</h3>
+			<p>
+				When you contact us through the website form, we collect your name, email address, phone number (if you
+				provide it), the location and topic you choose, your rental address (for resident requests) and your message.
+			</p>
+			<h3>Information collected automatically</h3>
+			<p>
+				Our website hosting provider may record standard server logs, including IP addresses, for security and
+				reliability.
+			</p>
+
+			<h2>How we use information</h2>
+			<ul>
+				<li>To answer your questions about renting a home from us.</li>
+				<li>To schedule and complete repairs and respond to residents.</li>
+				<li>To keep the site secure and prevent abuse.</li>
+			</ul>
+			<p>We do not sell your personal information, and we do not use it for third-party advertising.</p>
+
+			<h2>Service providers</h2>
+			<p>We rely on a small number of providers to run this site. They process information on our behalf:</p>
+			<ul>
+				<li><strong>GitHub Pages</strong>: hosting for this website.</li>
+				<li><strong>Supabase</strong>: secure storage of messages sent through the contact form.</li>
+				<li><strong>Resend</strong>: delivery of internal notification emails about new requests.</li>
+			</ul>
+			<p>
+				We may also disclose information if required by law, or to protect the rights, safety and security of
+				Tacoma Tipton, our residents or others.
+			</p>
+
+			<h2>How long we keep it</h2>
+			<p>
+				We keep messages for as long as we need them to respond to you and manage our homes, or until you ask us to
+				remove them.
+			</p>
+
+			<h2>Your choices</h2>
+			<p>
+				To see, update or delete the information you've sent us, reply to any email from us and we'll take care of
+				it. Depending on where you live, you may have additional rights to access, correct or delete your personal
+				information, and we'll respond to any such request.
+			</p>
+
+			<h2>Security</h2>
+			<p>
+				We use reasonable safeguards to protect your information. Messages can be sent from the website but cannot
+				be read back through it. No method of transmission or storage is completely secure, however.
+			</p>
+
+			<h2>Children</h2>
+			<p>This site is intended for adults. We do not knowingly collect personal information from children under 13.</p>
+
+			<h2>Changes to this policy</h2>
+			<p>If we update this policy, we'll post the new version here and change the effective date above.</p>
+		</article>
+	</main>
+
+	<SiteFooter />
+</Base>

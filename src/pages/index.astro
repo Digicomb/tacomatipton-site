@@ -1,0 +1,319 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Street from '../components/Street.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const locations = [
+	{
+		city: 'Akron',
+		state: 'Ohio',
+		value: 'Akron, OH',
+		body: 'Single-family homes in established Summit County neighborhoods, with easy access to downtown, the University of Akron and Cuyahoga Valley National Park.',
+		highlights: ['Quiet residential streets', 'Close to parks, trails and schools', 'Quick drive to I-76 and I-77'],
+	},
+	{
+		city: 'New Albany',
+		state: 'Indiana',
+		value: 'New Albany, IN',
+		body: 'Single-family homes on the Indiana side of the Ohio River, minutes from downtown Louisville and the shops and restaurants of historic downtown New Albany.',
+		highlights: ['Classic Southern Indiana neighborhoods', 'Close to the riverfront and Ohio River Greenway', 'Quick drive to I-64 and I-265'],
+	},
+];
+
+const reasons = [
+	{
+		title: 'A whole house to call home',
+		body: 'No shared walls, no one upstairs. Our homes give you a yard, a driveway and room to spread out.',
+		icon: 'M3 11 12 4l9 7M5 10v10h14V10M10 20v-5h4v5',
+	},
+	{
+		title: 'Ready on move-in day',
+		body: 'Every home is cleaned, checked and repaired before a new resident moves in, so you start fresh.',
+		icon: 'M9 12l2 2 4-4M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6Z',
+	},
+	{
+		title: 'Repairs handled promptly',
+		body: 'Send a request any time. We respond quickly and work with trusted local tradespeople to get it fixed right.',
+		icon: 'M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.6 2.6l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.5 2.5-2.4-.6-.6-2.4Z',
+	},
+	{
+		title: 'Owned and managed by us',
+		body: 'We own every home we rent. You deal directly with the people responsible for your house, not a call center.',
+		icon: 'M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM20 20v-1.5a3.5 3.5 0 0 0-2.5-3.4M15.5 4.1a3.5 3.5 0 0 1 0 6.8',
+	},
+	{
+		title: 'Clear leases, no surprises',
+		body: 'Straightforward terms written in plain English. You’ll know what’s expected before you sign.',
+		icon: 'M7 3h7l5 5v13H7ZM14 3v5h5M10 13h6M10 17h6',
+	},
+	{
+		title: 'Long-term stays welcome',
+		body: 'Many of our residents stay for years. Take care of the home and we’ll take care of you.',
+		icon: 'M12 21s-7-4.4-7-10.2A4.3 4.3 0 0 1 12 8a4.3 4.3 0 0 1 7 2.8C19 16.6 12 21 12 21Z',
+	},
+];
+
+const steps = [
+	{
+		title: 'Tell us what you need',
+		body: 'Send us a note with the city, number of bedrooms and move-in date you have in mind.',
+	},
+	{
+		title: 'Tour the home',
+		body: 'When a home that fits is available, we’ll set up a time for you to see it in person.',
+	},
+	{
+		title: 'Apply',
+		body: 'Fill out a rental application. We’ll walk you through what’s needed and get back to you quickly.',
+	},
+	{
+		title: 'Move in',
+		body: 'Sign your lease, pick up your keys and make yourself at home.',
+	},
+];
+
+const residentLinks = [
+	{
+		title: 'Request a repair',
+		body: 'Something not working? Tell us what’s wrong and where, and we’ll schedule a fix.',
+		cta: 'Send a repair request',
+		topic: 'Maintenance',
+	},
+	{
+		title: 'Questions about your lease',
+		body: 'Rent, renewals, moving out or anything else about your home. We’re happy to help.',
+		cta: 'Send us a message',
+		topic: 'Resident',
+	},
+];
+
+const faqs = [
+	{
+		q: 'Do you have homes available right now?',
+		a: 'Homes open up throughout the year in both Akron and New Albany. Send us a message with what you’re looking for and we’ll let you know what’s available or coming up soon.',
+	},
+	{
+		q: 'How do I apply?',
+		a: 'After you’ve toured a home, we’ll send you a rental application. Most applications include a background and credit check and proof of income.',
+	},
+	{
+		q: 'Are pets allowed?',
+		a: 'Pet policies vary by home. Ask about a specific home and we’ll tell you what’s allowed. Assistance animals are always welcome.',
+	},
+	{
+		q: 'Who takes care of repairs?',
+		a: 'We do. Send a repair request through the form on this page and we’ll schedule the work. For emergencies, follow the steps in the Residents section above.',
+	},
+	{
+		q: 'Who pays for utilities and lawn care?',
+		a: 'It depends on the home, and it’s always spelled out in your lease before you sign.',
+	},
+];
+
+const iconProps = {
+	width: 24,
+	height: 24,
+	viewBox: '0 0 24 24',
+	fill: 'none',
+	stroke: 'currentColor',
+	'stroke-width': 1.8,
+	'stroke-linecap': 'round',
+	'stroke-linejoin': 'round',
+};
+---
+
+<Base
+	title="Tacoma Tipton | Single-family homes for rent in Akron, OH and New Albany, IN"
+	description="Tacoma Tipton owns and manages well-kept single-family rental homes in Akron, Ohio and New Albany, Indiana. Find a home or send a repair request."
+>
+	<SiteHeader />
+
+	<main>
+		<section class="hero">
+			<div class="container hero-body">
+				<span class="eyebrow">Homes for rent in Akron, OH &amp; New Albany, IN</span>
+				<h1>A good home, <em>well looked after.</em></h1>
+				<p>
+					Tacoma Tipton owns and manages single-family rental homes in two communities we know well. Comfortable houses,
+					fair leases and repairs that actually get done.
+				</p>
+				<div class="hero-actions">
+					<a class="btn btn-primary" href="#contact" data-topic="Renting">Find a home</a>
+					<a class="btn btn-ghost" href="#residents">Resident services</a>
+				</div>
+			</div>
+			<Street />
+		</section>
+
+		<section class="section" id="locations">
+			<div class="container">
+				<div class="section-head">
+					<span class="eyebrow">Where we are</span>
+					<h2>Two communities. One standard of care.</h2>
+					<p class="lead">
+						Whether you’re in Northeast Ohio or across the river from Louisville, you get the same well-kept home and the
+						same responsive service.
+					</p>
+				</div>
+				<div class="locations">
+					{
+						locations.map((l) => (
+							<article class="location">
+								<div class="location-head">
+									<span class="icon-badge" aria-hidden="true">
+										<svg {...iconProps}>
+											<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" />
+											<circle cx="12" cy="9.5" r="2.5" />
+										</svg>
+									</span>
+									<div>
+										<h3>{l.city}</h3>
+										<p>{l.state}</p>
+									</div>
+								</div>
+								<p class="location-body">{l.body}</p>
+								<ul class="checklist" role="list">
+									{l.highlights.map((h) => <li>{h}</li>)}
+								</ul>
+								<a class="btn btn-outline" href="#contact" data-topic="Renting" data-location={l.value}>
+									Ask about {l.city} homes
+								</a>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="section section-soft" id="why">
+			<div class="container">
+				<div class="section-head">
+					<span class="eyebrow">Why rent with us</span>
+					<h2>The kind of landlord you’d want to rent from</h2>
+					<p class="lead">We keep our homes in good shape and treat our residents like neighbors. It’s that simple.</p>
+				</div>
+				<div class="cards">
+					{
+						reasons.map((r) => (
+							<div class="card">
+								<div class="icon-badge" aria-hidden="true">
+									<svg {...iconProps}>
+										<path d={r.icon} />
+									</svg>
+								</div>
+								<h3>{r.title}</h3>
+								<p>{r.body}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="how">
+			<div class="container">
+				<div class="section-head">
+					<span class="eyebrow">Renting with us</span>
+					<h2>From first hello to house keys</h2>
+					<p class="lead">
+						Homes open up throughout the year. Tell us what you’re looking for and we’ll reach out when the right one is
+						ready.
+					</p>
+				</div>
+				<ol class="steps" role="list">
+					{
+						steps.map((s, i) => (
+							<li class="step">
+								<span class="step-num">{i + 1}</span>
+								<h3>{s.title}</h3>
+								<p>{s.body}</p>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</section>
+
+		<section class="section section-dark" id="residents">
+			<div class="container">
+				<div class="section-head">
+					<span class="eyebrow">Residents</span>
+					<h2>Already living in a Tacoma Tipton home?</h2>
+					<p class="lead">We’re here to help. Send a request any time and we’ll be in touch.</p>
+				</div>
+				<div class="resident-grid">
+					{
+						residentLinks.map((r) => (
+							<div class="resident-card">
+								<h3>{r.title}</h3>
+								<p>{r.body}</p>
+								<a class="btn btn-primary" href="#contact" data-topic={r.topic}>
+									{r.cta}
+								</a>
+							</div>
+						))
+					}
+					<div class="resident-card emergency">
+						<h3>Emergencies</h3>
+						<p>
+							If you smell gas, see fire or smoke, or anyone is in danger,
+							<strong>leave the home and call 911 first.</strong>
+						</p>
+						<p>
+							For urgent problems like no heat in winter, a major water leak or a power outage in the home, call the
+							emergency number in your lease right away. Don’t wait for an email reply.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="faq">
+			<div class="container">
+				<div class="section-head">
+					<span class="eyebrow">Questions</span>
+					<h2>Frequently asked questions</h2>
+				</div>
+				<div class="faq">
+					{
+						faqs.map((f) => (
+							<details>
+								<summary>{f.q}</summary>
+								<p>{f.a}</p>
+							</details>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="section cta" id="contact">
+			<div class="container">
+				<span class="eyebrow">Get in touch</span>
+				<h2>Let’s find your next home</h2>
+				<p class="lead">
+					Looking for a rental, or already a resident? Send us a message and we’ll get back to you, usually within one
+					business day.
+				</p>
+				<ContactForm />
+			</div>
+		</section>
+	</main>
+
+	<SiteFooter />
+</Base>
+
+<script>
+	// Buttons around the page preselect the form's topic and location.
+	document.querySelectorAll<HTMLAnchorElement>('a[data-topic]').forEach((link) => {
+		link.addEventListener('click', () => {
+			const topic = document.getElementById('cf-topic') as HTMLSelectElement | null;
+			const location = document.getElementById('cf-location') as HTMLSelectElement | null;
+			if (topic && link.dataset.topic) topic.value = link.dataset.topic;
+			if (location && link.dataset.location) location.value = link.dataset.location;
+			document.dispatchEvent(new Event('contact:preset'));
+		});
+	});
+</script>
