@@ -1,5 +1,5 @@
 ---
-import { topics, locations } from '../options';
+import { topics } from '../options';
 ---
 
 <form class="contact-form" id="contact-form" novalidate>
@@ -19,17 +19,11 @@ import { topics, locations } from '../options';
 			<input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" />
 		</div>
 		<div class="field">
-			<label for="cf-location">Location <span aria-hidden="true">*</span></label>
-			<select id="cf-location" name="location" required>
-				{locations.map((l) => <option value={l.value}>{l.label}</option>)}
+			<label for="cf-topic">How can we help? <span aria-hidden="true">*</span></label>
+			<select id="cf-topic" name="topic" required>
+				{topics.map((t) => <option value={t.value}>{t.label}</option>)}
 			</select>
 		</div>
-	</div>
-	<div class="field">
-		<label for="cf-topic">How can we help? <span aria-hidden="true">*</span></label>
-		<select id="cf-topic" name="topic" required>
-			{topics.map((t) => <option value={t.value}>{t.label}</option>)}
-		</select>
 	</div>
 	<div class="field" id="cf-address-field" hidden>
 		<label for="cf-address">Your rental address <span aria-hidden="true">*</span></label>
@@ -43,7 +37,7 @@ import { topics, locations } from '../options';
 			rows="5"
 			maxlength="4000"
 			required
-			placeholder="Tell us what you’re looking for: bedrooms, move-in date, budget, pets."></textarea>
+			placeholder="Tell us the area you’re interested in, number of bedrooms, move-in date and any pets."></textarea>
 	</div>
 
 	<!-- Spam trap: hidden from people, often filled in by bots. -->
@@ -78,8 +72,8 @@ import { topics, locations } from '../options';
 	const thanks = "Thanks! We've got your message and will get back to you soon.";
 
 	const placeholders: Record<string, string> = {
-		Renting: 'Tell us what you’re looking for: bedrooms, move-in date, budget, pets.',
-		Maintenance: 'What needs fixing, where in the home, and when is a good time for us to come by?',
+		Renting: 'Tell us the area you’re interested in, number of bedrooms, move-in date and any pets.',
+		Maintenance: 'Describe the issue, where it is in the home and the best times for access.',
 		Resident: 'How can we help?',
 		Other: 'How can we help?',
 	};
@@ -139,7 +133,6 @@ import { topics, locations } from '../options';
 					email: value('email'),
 					phone: value('phone') || null,
 					topic: value('topic'),
-					location: value('location'),
 					address: addressField.hidden ? null : value('address'),
 					message: value('message'),
 					source: 'homepage',
@@ -153,7 +146,7 @@ import { topics, locations } from '../options';
 			form.reset();
 			syncTopic();
 			setStatus(thanks, 'success');
-			window.gtag?.('event', 'generate_lead', { form: 'contact', topic: value('topic'), location: value('location') });
+			window.gtag?.('event', 'generate_lead', { form: 'contact', topic: value('topic') });
 		} catch (error) {
 			console.error(error);
 			setStatus('Something went wrong sending your message. Please try again in a moment.', 'error');

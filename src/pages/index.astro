@@ -2,119 +2,115 @@
 import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import Street from '../components/Street.astro';
+import ParcelMap from '../components/ParcelMap.astro';
 import ContactForm from '../components/ContactForm.astro';
 
-const locations = [
+const pillars = [
 	{
-		city: 'Akron',
-		state: 'Ohio',
-		value: 'Akron, OH',
-		body: 'Single-family homes in established Summit County neighborhoods, with easy access to downtown, the University of Akron and Cuyahoga Valley National Park.',
-		highlights: ['Quiet residential streets', 'Close to parks, trails and schools', 'Quick drive to I-76 and I-77'],
+		title: 'Acquisition',
+		body: 'We identify and acquire single-family homes in stable, established Midwest neighborhoods.',
 	},
 	{
-		city: 'New Albany',
-		state: 'Indiana',
-		value: 'New Albany, IN',
-		body: 'Single-family homes on the Indiana side of the Ohio River, minutes from downtown Louisville and the shops and restaurants of historic downtown New Albany.',
-		highlights: ['Classic Southern Indiana neighborhoods', 'Close to the riverfront and Ohio River Greenway', 'Quick drive to I-64 and I-265'],
+		title: 'Renovation',
+		body: 'Each property is brought to a consistent standard before it is offered for lease.',
+	},
+	{
+		title: 'Leasing',
+		body: 'Applicants are screened against clear criteria and sign standardized, straightforward leases.',
+	},
+	{
+		title: 'Management',
+		body: 'Maintenance, resident support and property oversight are handled by our management team.',
 	},
 ];
 
-const reasons = [
+const features = [
 	{
-		title: 'A whole house to call home',
-		body: 'No shared walls, no one upstairs. Our homes give you a yard, a driveway and room to spread out.',
+		title: 'Single-family living',
+		body: 'Detached homes with private yards and driveways in established residential neighborhoods.',
 		icon: 'M3 11 12 4l9 7M5 10v10h14V10M10 20v-5h4v5',
 	},
 	{
-		title: 'Ready on move-in day',
-		body: 'Every home is cleaned, checked and repaired before a new resident moves in, so you start fresh.',
+		title: 'Move-in ready',
+		body: 'Every home is inspected and renovated to our standard before a new lease begins.',
 		icon: 'M9 12l2 2 4-4M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6Z',
 	},
 	{
-		title: 'Repairs handled promptly',
-		body: 'Send a request any time. We respond quickly and work with trusted local tradespeople to get it fixed right.',
+		title: 'Maintenance support',
+		body: 'Submit repair requests online any time. Our team schedules and tracks each request to completion.',
 		icon: 'M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.6 2.6l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.5 2.5-2.4-.6-.6-2.4Z',
 	},
 	{
-		title: 'Owned and managed by us',
-		body: 'We own every home we rent. You deal directly with the people responsible for your house, not a call center.',
-		icon: 'M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM20 20v-1.5a3.5 3.5 0 0 0-2.5-3.4M15.5 4.1a3.5 3.5 0 0 1 0 6.8',
-	},
-	{
-		title: 'Clear leases, no surprises',
-		body: 'Straightforward terms written in plain English. You’ll know what’s expected before you sign.',
+		title: 'Clear lease terms',
+		body: 'Standardized leases with straightforward terms, reviewed with you before you sign.',
 		icon: 'M7 3h7l5 5v13H7ZM14 3v5h5M10 13h6M10 17h6',
-	},
-	{
-		title: 'Long-term stays welcome',
-		body: 'Many of our residents stay for years. Take care of the home and we’ll take care of you.',
-		icon: 'M12 21s-7-4.4-7-10.2A4.3 4.3 0 0 1 12 8a4.3 4.3 0 0 1 7 2.8C19 16.6 12 21 12 21Z',
 	},
 ];
 
 const steps = [
 	{
-		title: 'Tell us what you need',
-		body: 'Send us a note with the city, number of bedrooms and move-in date you have in mind.',
+		title: 'Inquire',
+		body: 'Tell us the area, home size and move-in date you have in mind.',
 	},
 	{
-		title: 'Tour the home',
-		body: 'When a home that fits is available, we’ll set up a time for you to see it in person.',
+		title: 'Tour',
+		body: 'Our leasing team schedules a showing of available homes that fit your needs.',
 	},
 	{
 		title: 'Apply',
-		body: 'Fill out a rental application. We’ll walk you through what’s needed and get back to you quickly.',
+		body: 'Complete a rental application. We’ll confirm the requirements and respond promptly.',
 	},
 	{
-		title: 'Move in',
-		body: 'Sign your lease, pick up your keys and make yourself at home.',
+		title: 'Sign your lease',
+		body: 'Review and sign your lease, then schedule your move-in.',
 	},
 ];
 
 const residentLinks = [
 	{
-		title: 'Request a repair',
-		body: 'Something not working? Tell us what’s wrong and where, and we’ll schedule a fix.',
-		cta: 'Send a repair request',
+		title: 'Maintenance requests',
+		body: 'Report a repair need, including the location in the home and the best times for access.',
+		cta: 'Submit a request',
 		topic: 'Maintenance',
 	},
 	{
-		title: 'Questions about your lease',
-		body: 'Rent, renewals, moving out or anything else about your home. We’re happy to help.',
-		cta: 'Send us a message',
+		title: 'Lease and account questions',
+		body: 'Rent, renewals, move-out and other questions about your lease.',
+		cta: 'Contact us',
 		topic: 'Resident',
 	},
 ];
 
 const faqs = [
 	{
-		q: 'Do you have homes available right now?',
-		a: 'Homes open up throughout the year in both Akron and New Albany. Send us a message with what you’re looking for and we’ll let you know what’s available or coming up soon.',
+		q: 'Where are your properties located?',
+		a: 'Our portfolio is located in the Midwest. Tell us the area you’re interested in and our leasing team will let you know what’s available.',
 	},
 	{
-		q: 'How do I apply?',
-		a: 'After you’ve toured a home, we’ll send you a rental application. Most applications include a background and credit check and proof of income.',
+		q: 'Do you have homes available now?',
+		a: 'Availability changes throughout the year. Send an inquiry with your preferred area, home size and move-in date, and we’ll follow up with current options.',
+	},
+	{
+		q: 'What are the application requirements?',
+		a: 'Applications typically include identity verification, a credit and background check, and proof of income. We’ll confirm the requirements for the specific home.',
 	},
 	{
 		q: 'Are pets allowed?',
-		a: 'Pet policies vary by home. Ask about a specific home and we’ll tell you what’s allowed. Assistance animals are always welcome.',
+		a: 'Pet policies are set by property. Ask about a specific home for details. Assistance animals are accommodated in accordance with fair housing law.',
 	},
 	{
-		q: 'Who takes care of repairs?',
-		a: 'We do. Send a repair request through the form on this page and we’ll schedule the work. For emergencies, follow the steps in the Residents section above.',
+		q: 'How are repairs handled?',
+		a: 'Residents submit maintenance requests through this website, and our team reviews and schedules each one. For emergencies, follow the instructions in the Residents section.',
 	},
 	{
-		q: 'Who pays for utilities and lawn care?',
-		a: 'It depends on the home, and it’s always spelled out in your lease before you sign.',
+		q: 'Who is responsible for utilities and lawn care?',
+		a: 'Responsibilities vary by property and are defined in each lease.',
 	},
 ];
 
 const iconProps = {
-	width: 24,
-	height: 24,
+	width: 22,
+	height: 22,
 	viewBox: '0 0 24 24',
 	fill: 'none',
 	stroke: 'currentColor',
@@ -125,86 +121,72 @@ const iconProps = {
 ---
 
 <Base
-	title="Tacoma Tipton | Single-family homes for rent in Akron, OH and New Albany, IN"
-	description="Tacoma Tipton owns and manages well-kept single-family rental homes in Akron, Ohio and New Albany, Indiana. Find a home or send a repair request."
+	title="Tacoma Tipton | Single-family rental homes across the Midwest"
+	description="Tacoma Tipton acquires, renovates and manages single-family rental homes across the Midwest. Find a rental home or submit a maintenance request."
 >
 	<SiteHeader />
 
 	<main>
 		<section class="hero">
+			<ParcelMap />
 			<div class="container hero-body">
-				<span class="eyebrow">Homes for rent in Akron, OH &amp; New Albany, IN</span>
-				<h1>A good home, <em>well looked after.</em></h1>
+				<span class="eyebrow">Single-family residential real estate</span>
+				<h1>Single-family rental homes across the Midwest.</h1>
 				<p>
-					Tacoma Tipton owns and manages single-family rental homes in two communities we know well. Comfortable houses,
-					fair leases and repairs that actually get done.
+					Tacoma Tipton acquires, renovates and manages single-family rental homes in established Midwest
+					neighborhoods, with professional leasing and maintenance for every resident.
 				</p>
 				<div class="hero-actions">
-					<a class="btn btn-primary" href="#contact" data-topic="Renting">Find a home</a>
+					<a class="btn btn-primary" href="#contact" data-topic="Renting">Find a rental</a>
 					<a class="btn btn-ghost" href="#residents">Resident services</a>
 				</div>
 			</div>
-			<Street />
 		</section>
 
-		<section class="section" id="locations">
+		<section class="section" id="about">
 			<div class="container">
 				<div class="section-head">
-					<span class="eyebrow">Where we are</span>
-					<h2>Two communities. One standard of care.</h2>
+					<span class="eyebrow">What we do</span>
+					<h2>An owner-operator of single-family rental housing</h2>
 					<p class="lead">
-						Whether you’re in Northeast Ohio or across the river from Louisville, you get the same well-kept home and the
-						same responsive service.
+						We handle every stage of ownership, from acquisition through day-to-day management, so standards stay
+						consistent across our portfolio.
 					</p>
 				</div>
-				<div class="locations">
+				<div class="pillars">
 					{
-						locations.map((l) => (
-							<article class="location">
-								<div class="location-head">
-									<span class="icon-badge" aria-hidden="true">
-										<svg {...iconProps}>
-											<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" />
-											<circle cx="12" cy="9.5" r="2.5" />
-										</svg>
-									</span>
-									<div>
-										<h3>{l.city}</h3>
-										<p>{l.state}</p>
-									</div>
-								</div>
-								<p class="location-body">{l.body}</p>
-								<ul class="checklist" role="list">
-									{l.highlights.map((h) => <li>{h}</li>)}
-								</ul>
-								<a class="btn btn-outline" href="#contact" data-topic="Renting" data-location={l.value}>
-									Ask about {l.city} homes
-								</a>
-							</article>
+						pillars.map((p, i) => (
+							<div class="pillar">
+								<span class="pillar-num">{String(i + 1).padStart(2, '0')}</span>
+								<h3>{p.title}</h3>
+								<p>{p.body}</p>
+							</div>
 						))
 					}
 				</div>
 			</div>
 		</section>
 
-		<section class="section section-soft" id="why">
+		<section class="section section-soft" id="renting">
 			<div class="container">
 				<div class="section-head">
-					<span class="eyebrow">Why rent with us</span>
-					<h2>The kind of landlord you’d want to rent from</h2>
-					<p class="lead">We keep our homes in good shape and treat our residents like neighbors. It’s that simple.</p>
+					<span class="eyebrow">Renting with Tacoma Tipton</span>
+					<h2>Professionally managed homes</h2>
+					<p class="lead">
+						Our residents get the space and privacy of a single-family home, backed by a dedicated management team.
+					</p>
 				</div>
 				<div class="cards">
 					{
-						reasons.map((r) => (
+						features.map((f) => (
 							<div class="card">
 								<div class="icon-badge" aria-hidden="true">
 									<svg {...iconProps}>
-										<path d={r.icon} />
+										<path d={f.icon} />
 									</svg>
 								</div>
-								<h3>{r.title}</h3>
-								<p>{r.body}</p>
+								<h3>{f.title}</h3>
+								<p>{f.body}</p>
 							</div>
 						))
 					}
@@ -215,18 +197,18 @@ const iconProps = {
 		<section class="section" id="how">
 			<div class="container">
 				<div class="section-head">
-					<span class="eyebrow">Renting with us</span>
-					<h2>From first hello to house keys</h2>
+					<span class="eyebrow">How to rent</span>
+					<h2>From inquiry to move-in</h2>
 					<p class="lead">
-						Homes open up throughout the year. Tell us what you’re looking for and we’ll reach out when the right one is
-						ready.
+						Homes become available throughout the year. Send an inquiry and our leasing team will follow up with
+						options that match what you’re looking for.
 					</p>
 				</div>
 				<ol class="steps" role="list">
 					{
 						steps.map((s, i) => (
 							<li class="step">
-								<span class="step-num">{i + 1}</span>
+								<span class="step-num">STEP {i + 1}</span>
 								<h3>{s.title}</h3>
 								<p>{s.body}</p>
 							</li>
@@ -240,8 +222,8 @@ const iconProps = {
 			<div class="container">
 				<div class="section-head">
 					<span class="eyebrow">Residents</span>
-					<h2>Already living in a Tacoma Tipton home?</h2>
-					<p class="lead">We’re here to help. Send a request any time and we’ll be in touch.</p>
+					<h2>Resident services</h2>
+					<p class="lead">Current residents can submit maintenance requests and questions to our team online.</p>
 				</div>
 				<div class="resident-grid">
 					{
@@ -262,8 +244,8 @@ const iconProps = {
 							<strong>leave the home and call 911 first.</strong>
 						</p>
 						<p>
-							For urgent problems like no heat in winter, a major water leak or a power outage in the home, call the
-							emergency number in your lease right away. Don’t wait for an email reply.
+							For urgent issues such as no heat in winter, a major water leak or a loss of power, call the emergency
+							maintenance number in your lease. Do not use the online form for emergencies.
 						</p>
 					</div>
 				</div>
@@ -291,10 +273,10 @@ const iconProps = {
 
 		<section class="section cta" id="contact">
 			<div class="container">
-				<span class="eyebrow">Get in touch</span>
-				<h2>Let’s find your next home</h2>
+				<span class="eyebrow">Contact</span>
+				<h2>Get in touch</h2>
 				<p class="lead">
-					Looking for a rental, or already a resident? Send us a message and we’ll get back to you, usually within one
+					Prospective residents, current residents and others can reach our team here. We typically respond within one
 					business day.
 				</p>
 				<ContactForm />
@@ -306,13 +288,11 @@ const iconProps = {
 </Base>
 
 <script>
-	// Buttons around the page preselect the form's topic and location.
+	// Buttons around the page preselect the form's topic.
 	document.querySelectorAll<HTMLAnchorElement>('a[data-topic]').forEach((link) => {
 		link.addEventListener('click', () => {
 			const topic = document.getElementById('cf-topic') as HTMLSelectElement | null;
-			const location = document.getElementById('cf-location') as HTMLSelectElement | null;
 			if (topic && link.dataset.topic) topic.value = link.dataset.topic;
-			if (location && link.dataset.location) location.value = link.dataset.location;
 			document.dispatchEvent(new Event('contact:preset'));
 		});
 	});
