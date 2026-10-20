@@ -13,7 +13,7 @@ Astro site for Tacoma Tipton (single-family rental homes across the Midwest), bu
 - Form topics: `src/options.ts`. If you rename or add one, update the `tt_contact_topic_valid` check in the database too.
 - Hero art: `src/components/ParcelMap.astro`.
 - Icons: edit `public/favicon.svg` (keep `src/assets/logo.svg` in sync), then run `node scripts/make-icons.cjs`.
-- Analytics: set `gaId` in `src/layouts/Base.astro` to turn on GA4 (and add it to the privacy policy).
+- Analytics: GA4 `G-L4E4MFK96Q` (`gaId` in `src/layouts/Base.astro`), production builds only. A successful form send fires a `generate_lead` event.
 - Deploy: `.github/workflows/deploy.yml` publishes to GitHub Pages on push to `main`.
 
 ## Contact form

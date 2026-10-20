@@ -10,7 +10,7 @@ const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 // Google Analytics 4. Set a measurement ID to turn it on; only loaded on production builds.
-const gaId = '';
+const gaId = 'G-L4E4MFK96Q';
 const loadAnalytics = import.meta.env.PROD && gaId !== '';
 
 const organization = {
