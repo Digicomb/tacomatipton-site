@@ -18,6 +18,6 @@ Astro site for Tacoma Tipton (single-family rental homes in Akron, OH and New Al
 
 ## Contact form
 
-The form inserts into `tt_contact_requests` in the shared Digicomb Supabase project (also used by missional.io, which owns the keep-alive job). The public key can insert but not read. A database trigger emails each request through Resend, with the visitor as reply-to.
+The form inserts into `tt_contact_requests` in the shared Digicomb Supabase project (also used by missional.io, which owns the keep-alive job). The public key can insert but not read. A database trigger emails each request through Resend from notifications@digicomb.com (the shared Resend domain), with the visitor as reply-to.
 
 Setup: run `supabase/migrations/001_tt_contact_requests.sql` in the Supabase SQL Editor, then create the two Vault secrets listed in it.

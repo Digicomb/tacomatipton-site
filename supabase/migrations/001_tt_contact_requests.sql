@@ -56,12 +56,13 @@ create extension if not exists pg_net with schema extensions;
 
 -- Settings are stored in Supabase Vault (encrypted). 'resend_api_key' is shared with
 -- the other Digicomb sites and already exists. Set the other two ONCE by running
--- the block below (the from address needs tacomatipton.com verified in Resend).
+-- the block below. The from address uses digicomb.com, the shared verified Resend domain
+-- (the free Resend plan allows only three domains, so startup projects share it).
 -- To change a value later: Project Settings -> Vault, or
 --   select vault.update_secret((select id from vault.secrets where name = 'tt_contact_notify_to'), 'new@example.com');
 --
 -- select vault.create_secret('kelly.orr@gmail.com', 'tt_contact_notify_to');
--- select vault.create_secret('Tacoma Tipton <notifications@tacomatipton.com>', 'tt_contact_notify_from');
+-- select vault.create_secret('Tacoma Tipton <notifications@digicomb.com>', 'tt_contact_notify_from');
 
 create or replace function public.notify_tt_contact_request()
 returns trigger
