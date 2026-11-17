@@ -208,6 +208,10 @@ a:focus-visible {
 	white-space: nowrap;
 }
 
+.nav-short {
+	display: none;
+}
+
 @media (max-width: 900px) {
 	.nav a:not(.btn) {
 		display: none;
@@ -230,6 +234,10 @@ a:focus-visible {
 
 	.nav-long {
 		display: none;
+	}
+
+	.nav-short {
+		display: inline;
 	}
 }
 
@@ -757,4 +765,37 @@ a:focus-visible {
 .prose-meta {
 	color: var(--muted);
 	font-size: 0.95rem;
+}
+
+/* Buttons under a section's content */
+.section-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+	margin-top: 40px;
+}
+
+/* Resident portal feature list */
+.resident-list {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 1.4em;
+	display: grid;
+	gap: 8px;
+}
+
+.resident-list li {
+	position: relative;
+	padding-left: 22px;
+}
+
+.resident-list li::before {
+	content: '';
+	position: absolute;
+	left: 2px;
+	top: 0.6em;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--blue-light);
 }

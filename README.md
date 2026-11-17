@@ -10,6 +10,7 @@ Astro site for Tacoma Tipton (single-family rental homes across the Midwest), bu
 | `npm run preview` | Preview the production build locally    |
 
 - Content: `src/pages/index.astro` (pillars, features, steps, resident links and FAQs are arrays at the top). Keep city names off the site; it refers to the Midwest only.
+- RentRedi: listings, applications and the resident portal (rent, maintenance) are on RentRedi; the URLs live in `src/links.ts`.
 - Form topics: `src/options.ts`. If you rename or add one, update the `tt_contact_topic_valid` check in the database too.
 - Hero art: `src/components/ParcelMap.astro`.
 - Icons: edit `public/favicon.svg` (keep `src/assets/logo.svg` in sync), then run `node scripts/make-icons.cjs`.

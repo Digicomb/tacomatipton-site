@@ -1,3 +1,7 @@
+---
+import { LISTINGS_URL, RESIDENT_PORTAL_URL } from '../links';
+---
+
 <footer class="site-footer">
 	<div class="container">
 		<div>
@@ -6,7 +10,13 @@
 		</div>
 		<div class="footer-meta">
 			<p>&copy; 2026 Tacoma Tipton</p>
-			<p><a href="/#contact">Contact</a> &middot; <a href="/privacy/">Privacy</a></p>
+			<p>
+				<a href={LISTINGS_URL} target="_blank" rel="noopener">Available homes</a> &middot; <a
+					href={RESIDENT_PORTAL_URL}
+					target="_blank"
+					rel="noopener">Resident portal</a
+				> &middot; <a href="/#contact">Contact</a> &middot; <a href="/privacy/">Privacy</a>
+			</p>
 		</div>
 		<p class="eho">
 			<svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">

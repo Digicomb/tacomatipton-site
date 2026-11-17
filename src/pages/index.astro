@@ -4,6 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ParcelMap from '../components/ParcelMap.astro';
 import ContactForm from '../components/ContactForm.astro';
+import { LISTINGS_URL, RESIDENT_PORTAL_URL } from '../links';
 
 const pillars = [
 	{
@@ -49,16 +50,16 @@ const features = [
 
 const steps = [
 	{
-		title: 'Inquire',
-		body: 'Tell us the area, home size and move-in date you have in mind.',
+		title: 'Browse homes',
+		body: 'See current listings with rent, bedrooms and features on our available homes page.',
 	},
 	{
 		title: 'Tour',
-		body: 'Our leasing team schedules a showing of available homes that fit your needs.',
+		body: 'Request a showing of the homes that fit your needs and our leasing team will schedule it.',
 	},
 	{
-		title: 'Apply',
-		body: 'Complete a rental application. We’ll confirm the requirements and respond promptly.',
+		title: 'Apply online',
+		body: 'Complete a secure online rental application. We’ll review it and respond promptly.',
 	},
 	{
 		title: 'Sign your lease',
@@ -66,20 +67,6 @@ const steps = [
 	},
 ];
 
-const residentLinks = [
-	{
-		title: 'Maintenance requests',
-		body: 'Report a repair need, including the location in the home and the best times for access.',
-		cta: 'Submit a request',
-		topic: 'Maintenance',
-	},
-	{
-		title: 'Lease and account questions',
-		body: 'Rent, renewals, move-out and other questions about your lease.',
-		cta: 'Contact us',
-		topic: 'Resident',
-	},
-];
 
 const faqs = [
 	{
@@ -88,19 +75,30 @@ const faqs = [
 	},
 	{
 		q: 'Do you have homes available now?',
-		a: 'Availability changes throughout the year. Send an inquiry with your preferred area, home size and move-in date, and we’ll follow up with current options.',
+		a: 'Current listings are on our available homes page. Availability changes throughout the year, so if nothing fits today, send us an inquiry and we’ll follow up as homes open up.',
+		link: { href: LISTINGS_URL, label: 'View available homes' },
+	},
+	{
+		q: 'How do I apply?',
+		a: 'Choose a home on our available homes page and select Apply Now to complete a secure online application.',
+		link: { href: LISTINGS_URL, label: 'Go to available homes' },
 	},
 	{
 		q: 'What are the application requirements?',
-		a: 'Applications typically include identity verification, a credit and background check, and proof of income. We’ll confirm the requirements for the specific home.',
+		a: 'Applications typically include identity verification, a credit and background check, and proof of income. Requirements for each home are shown with its listing.',
 	},
 	{
 		q: 'Are pets allowed?',
 		a: 'Pet policies are set by property. Ask about a specific home for details. Assistance animals are accommodated in accordance with fair housing law.',
 	},
 	{
+		q: 'How do I pay rent?',
+		a: 'Residents pay rent online through the resident portal or the RentRedi mobile app, by bank account or card, with optional autopay.',
+		link: { href: RESIDENT_PORTAL_URL, label: 'Log in to the resident portal' },
+	},
+	{
 		q: 'How are repairs handled?',
-		a: 'Residents submit maintenance requests through this website, and our team reviews and schedules each one. For emergencies, follow the instructions in the Residents section.',
+		a: 'Residents submit maintenance requests in the resident portal or app, where they can add photos or video and track progress. Our team reviews and schedules each one. For emergencies, follow the instructions in the Residents section.',
 	},
 	{
 		q: 'Who is responsible for utilities and lawn care?',
@@ -122,7 +120,7 @@ const iconProps = {
 
 <Base
 	title="Tacoma Tipton | Single-family rental homes across the Midwest"
-	description="Tacoma Tipton acquires, renovates and manages single-family rental homes across the Midwest. Find a rental home or submit a maintenance request."
+	description="Tacoma Tipton acquires, renovates and manages single-family rental homes across the Midwest. View available homes, apply online or log in to the resident portal."
 >
 	<SiteHeader />
 
@@ -137,7 +135,7 @@ const iconProps = {
 					neighborhoods, with professional leasing and maintenance for every resident.
 				</p>
 				<div class="hero-actions">
-					<a class="btn btn-primary" href="#contact" data-topic="Renting">Find a rental</a>
+					<a class="btn btn-primary" href={LISTINGS_URL} target="_blank" rel="noopener">View available homes</a>
 					<a class="btn btn-ghost" href="#residents">Resident services</a>
 				</div>
 			</div>
@@ -200,8 +198,8 @@ const iconProps = {
 					<span class="eyebrow">How to rent</span>
 					<h2>From inquiry to move-in</h2>
 					<p class="lead">
-						Homes become available throughout the year. Send an inquiry and our leasing team will follow up with
-						options that match what you’re looking for.
+						Browse current listings and apply online. Homes become available throughout the year, so check back
+						often or send us an inquiry.
 					</p>
 				</div>
 				<ol class="steps" role="list">
@@ -215,6 +213,10 @@ const iconProps = {
 						))
 					}
 				</ol>
+				<div class="section-actions">
+					<a class="btn btn-primary" href={LISTINGS_URL} target="_blank" rel="noopener">View available homes</a>
+					<a class="btn btn-outline" href="#contact" data-topic="Renting">Ask our leasing team</a>
+				</div>
 			</div>
 		</section>
 
@@ -223,25 +225,30 @@ const iconProps = {
 				<div class="section-head">
 					<span class="eyebrow">Residents</span>
 					<h2>Resident services</h2>
-					<p class="lead">Current residents can submit maintenance requests and questions to our team online.</p>
+					<p class="lead">
+						Current residents manage everything in the resident portal: rent, maintenance requests and lease details.
+					</p>
 				</div>
 				<div class="resident-grid">
-					{
-						residentLinks.map((r) => (
-							<div class="resident-card">
-								<h3>{r.title}</h3>
-								<p>{r.body}</p>
-								<a class="btn btn-primary" href="#contact" data-topic={r.topic}>
-									{r.cta}
-								</a>
-							</div>
-						))
-					}
+					<div class="resident-card">
+						<h3>Resident portal</h3>
+						<ul class="resident-list" role="list">
+							<li>Pay rent by bank account or card</li>
+							<li>Set up autopay</li>
+							<li>Submit and track maintenance requests</li>
+							<li>View your lease and messages</li>
+						</ul>
+						<a class="btn btn-primary" href={RESIDENT_PORTAL_URL} target="_blank" rel="noopener">Log in</a>
+					</div>
+					<div class="resident-card">
+						<h3>Questions for our team</h3>
+						<p>Renewals, move-out or anything else about your lease? Send us a message and we’ll follow up.</p>
+						<a class="btn btn-primary" href="#contact" data-topic="Resident">Contact us</a>
+					</div>
 					<div class="resident-card emergency">
 						<h3>Emergencies</h3>
 						<p>
-							If you smell gas, see fire or smoke, or anyone is in danger,
-							<strong>leave the home and call 911 first.</strong>
+							If you smell gas, see fire or smoke, or anyone is in danger, <strong>leave the home and call 911 first.</strong>
 						</p>
 						<p>
 							For urgent issues such as no heat in winter, a major water leak or a loss of power, call the emergency
@@ -263,7 +270,17 @@ const iconProps = {
 						faqs.map((f) => (
 							<details>
 								<summary>{f.q}</summary>
-								<p>{f.a}</p>
+								<p>
+									{f.a}
+									{f.link && (
+										<>
+											{' '}
+											<a href={f.link.href} target="_blank" rel="noopener">
+												{f.link.label}
+											</a>
+										</>
+									)}
+								</p>
 							</details>
 						))
 					}
