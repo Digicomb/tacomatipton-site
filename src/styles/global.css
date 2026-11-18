@@ -582,6 +582,12 @@ a:focus-visible {
 	text-align: right;
 }
 
+.site-footer .powered {
+	margin-top: 6px;
+	font-size: 0.85rem;
+	color: rgba(255, 255, 255, 0.6);
+}
+
 .site-footer .eho {
 	flex-basis: 100%;
 	display: flex;
